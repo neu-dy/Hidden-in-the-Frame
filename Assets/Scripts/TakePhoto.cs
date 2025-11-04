@@ -60,4 +60,14 @@ public class TakePhoto : MonoBehaviour
             outputImage.texture = snapshot;
         }
     }
+    public void TakePhotoButton()
+    {
+        outputTexture = RenderSnapshot(phoneCam);
+        ShowSnapshot(outputTexture);
+        Debug.Log("New snapshot capture outputted (via button).");
+    }
+    //void OnMouseDown()
+    //{
+    //    TakePhotoButton();
+    //}
 }
