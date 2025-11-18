@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,18 +12,36 @@ public class TakePhoto : MonoBehaviour
     private Camera phoneCam;
     public RawImage outputImage;
     private Texture2D outputTexture;
+    private PokeInteractable phoneButton; 
 
     // Start is called before the first frame update
     void Start()
     {
         // Identify the Phone Camera used for photo output
         phoneCam = GameObject.Find("PhoneCameraOutput").GetComponent<Camera>();
+
+        // Initialize the poke-enabled Phone Button used for photo taking
+        phoneButton = GetComponent<PokeInteractable>();
+
+        phoneButton.WhenStateChanged += OnStateChanged;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(photoKey))
+        {
+            outputTexture = RenderSnapshot(phoneCam);
+            ShowSnapshot(outputTexture);
+            Debug.Log("New snapshot capture outputted.");
+        }
+    }
+
+    // Function to detect poke action on phone button
+    public void OnStateChanged(InteractableStateChangeArgs args)
+    {
+        // Select = the "pressing" event
+        if (args.NewState == InteractableState.Select)
         {
             outputTexture = RenderSnapshot(phoneCam);
             ShowSnapshot(outputTexture);

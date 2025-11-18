@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Oculus.Interaction;
+using static UnityEngine.CullingGroup;
 
 public class PhotoDetector : MonoBehaviour
 {
@@ -29,6 +31,7 @@ public class PhotoDetector : MonoBehaviour
         targets.AddRange(FindObjectsOfType<ShapeTarget>());
     }
 
+
     void Update()
     {
         if (Input.GetKeyDown(photoKey))
@@ -54,6 +57,7 @@ public class PhotoDetector : MonoBehaviour
 
             Debug.Log("New snapshot capture outputted & detection done.");
         }
+                
     }
 
     Texture2D RenderSnapshot(Camera cam)
