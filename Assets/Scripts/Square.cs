@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ShapeTarget : MonoBehaviour
 {
-    public enum ShapeType { WallPhoto, Figure, Painting, other }
+    public enum ShapeType { WallPhoto, Figure, Painting, Cube, Capsule, other }
     public ShapeType shape = ShapeType.other;
 
     [HideInInspector] public Renderer cachedRenderer;

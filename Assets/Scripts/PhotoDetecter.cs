@@ -49,7 +49,7 @@ public class PhotoDetector : MonoBehaviour
                 if (seen.Count == 0)
                     feedbackText.text = "Wrong";
                 else
-                    feedbackText.text = "Got " + string.Join("、", seen);
+                    feedbackText.text = "Got " + string.Join(" & ", seen);
             }
 
             Debug.Log("New snapshot capture outputted & detection done.");
@@ -72,29 +72,98 @@ public class PhotoDetector : MonoBehaviour
 
     List<string> DetectVisibleTargets()
     {
+        // This list will store all the objects we successfully detect.
         var results = new List<string>();
-        var planes = GeometryUtility.CalculateFrustumPlanes(phoneCam);
 
+        // Go/Loop through every object in the scene that has a ShapeTarget script.
         foreach (var t in targets)
         {
-            if (!t || !t.cachedRenderer || !t.cachedCollider) continue;
+            // Safety check:
+            // If the object doesn't exist, or doesn't have a renderer
+            // or collider for us to test against, skip it.
+            if (!t || !t.cachedRenderer || !t.cachedCollider)
+                continue;
 
-            bool inFrustum = GeometryUtility.TestPlanesAABB(planes, t.cachedRenderer.bounds);
-            if (!inFrustum) continue;
+            // Check if the ENTIRE object is inside the camera frame
+            // and not blocked by anything. If not, skip it.
+            if (!IsTargetFullyVisible(t))
+                continue;
 
-            Vector3 camPos = phoneCam.transform.position;
-            Vector3 targetCenter = t.cachedCollider.bounds.center;
-            Vector3 dir = targetCenter - camPos;
-            float dist = dir.magnitude;
+            // If we reach this line:
+            // The object IS fully inside the picture AND not occluded.
+            // Add its label (WallPhoto, Cube, etc.) to the results list.
+            results.Add($"{t.shape}");
+        }
+        // Return all objects that were successfully detected in the snapshot.
+        return results;
+    }
+    bool IsTargetFullyVisible(ShapeTarget t)
+    {
+        
+        // Determine dimensions for object x y z
+        // This is the invisible box that wraps around the whole mesh.
+        Bounds bounds = t.cachedRenderer.bounds;
+        Vector3 min = bounds.min;
+        Vector3 max = bounds.max;
+
+        // 8 corners of the renderer bounds
+        // We will check each of these to make sure the entire box is in view.
+        Vector3[] corners =
+        {
+        new Vector3(min.x, min.y, min.z),
+        new Vector3(min.x, min.y, max.z),
+        new Vector3(min.x, max.y, min.z),
+        new Vector3(min.x, max.y, max.z),
+        new Vector3(max.x, min.y, min.z),
+        new Vector3(max.x, min.y, max.z),
+        new Vector3(max.x, max.y, min.z),
+        new Vector3(max.x, max.y, max.z),
+    };
+
+        // 1) Check that ALL corners are inside the camera's view
+        // If even one corner is outside, the object is not gonna show fully visible.
+        foreach (var corner in corners)
+        {
+            Vector3 vp = phoneCam.WorldToViewportPoint(corner);
+
+            // Behind camera?
+            if (vp.z <= 0f)
+                return false;
+
+            // Outside screen?
+            if (vp.x < 0f || vp.x > 1f || vp.y < 0f || vp.y > 1f)
+                return false;
+        }
+
+        // If we reach this point:
+        // All corners are inside the camera view → object is fully on-screen.
+        // So now: 2) Occlusion check: make sure nothing is blocking it
+        Vector3 camPos = phoneCam.transform.position;
+
+        // We’ll check the center + a few corners
+        List<Vector3> samplePoints = new List<Vector3>();
+        samplePoints.Add(t.cachedCollider.bounds.center);
+        samplePoints.AddRange(corners);
+
+        foreach (var point in samplePoints)
+        {
+            Vector3 dir = point - camPos; // Direction from camera to the point
+            float dist = dir.magnitude; // Distance to the point
+
+            if (dist <= 0.001f) // Ignore insanely small distances (rare edge case)
+                continue;
 
             if (Physics.Raycast(camPos, dir.normalized, out RaycastHit hit, dist, occlusionMask))
             {
-                if (hit.collider != t.cachedCollider) continue;
+                // Something else is in front of this point → not fully visible
+                if (hit.collider != t.cachedCollider)
+                    return false;
             }
-
-            results.Add($"{t.shape}");
         }
 
-        return results;
+        // If we reach this line:
+        // - All corners are inside the camera view (1st condition)
+        // - None of them are blocked by other objects (2nd condition)
+        return true;
     }
 }
