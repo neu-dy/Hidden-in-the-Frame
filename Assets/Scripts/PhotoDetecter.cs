@@ -4,9 +4,12 @@ using UnityEngine.UI;
 using TMPro;
 using Oculus.Interaction;
 using static UnityEngine.CullingGroup;
+using UnityEngine.SceneManagement;
 
 public class PhotoDetector : MonoBehaviour
 {
+    public bool poked;
+
     [Header("Trigger")]
     [SerializeField] private KeyCode photoKey = KeyCode.Space;
 
@@ -21,6 +24,12 @@ public class PhotoDetector : MonoBehaviour
     private Texture2D lastSnapshot;
     private List<ShapeTarget> targets = new List<ShapeTarget>();
 
+    [Header("required Targets")]
+    private List<string> requiredShapes = new List<string>() { "WallPhoto", "Figure", "Painting" };
+
+    private HashSet<string> collected =  new HashSet<string>();
+    [SerializeField] private string nextSceneName = "AR Ending";
+
     void Awake()
     {
         if (!phoneCam)
@@ -34,8 +43,11 @@ public class PhotoDetector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(photoKey))
+        if (poked)
+        //if (Input.GetKeyDown(photoKey))
         {
+            poked = false; //unpoke
+
             if (!phoneCam || phoneCam.targetTexture == null)
             {
                 Debug.LogError("[Detect] Missing camera or RenderTexture!");
@@ -46,6 +58,27 @@ public class PhotoDetector : MonoBehaviour
             if (outputImage) outputImage.texture = lastSnapshot;
 
             var seen = DetectVisibleTargets();
+
+            foreach (var s in seen) //Add the recognization target
+            {
+                collected.Add(s); // If object detected, will add to collection
+            }
+
+            bool allFound = true;
+            foreach (var req in requiredShapes)
+            {
+                if (!collected.Contains(req))
+                {
+                    allFound = false;
+                    break;
+                }
+            }
+
+            if (allFound && !string. IsNullOrEmpty(nextSceneName))
+            {
+                Debug.Log("Already Dected all target and Changing Scene");
+                SceneManager.LoadScene(nextSceneName);
+            }
 
             if (feedbackText)
             {

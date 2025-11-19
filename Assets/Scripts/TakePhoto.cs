@@ -12,7 +12,9 @@ public class TakePhoto : MonoBehaviour
     private Camera phoneCam;
     public RawImage outputImage;
     private Texture2D outputTexture;
-    private PokeInteractable phoneButton; 
+    private PokeInteractable phoneButton;
+
+    public PhotoDetector photoDetector;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,9 @@ public class TakePhoto : MonoBehaviour
         phoneButton = GetComponent<PokeInteractable>();
 
         phoneButton.WhenStateChanged += OnStateChanged;
+
+        //dynamically find the object that has the photodector on it
+        //photoDetector = GameObject.Find("PhotoManager").GetComponent<PhotoDetector>();
     }
 
     // Update is called once per frame
@@ -46,6 +51,11 @@ public class TakePhoto : MonoBehaviour
             outputTexture = RenderSnapshot(phoneCam);
             ShowSnapshot(outputTexture);
             Debug.Log("New snapshot capture outputted.");
+          
+            //tells the photodetector to detect
+            photoDetector.poked = true;
+            //better
+            //photoDetector.Poke();
         }
     }
 
