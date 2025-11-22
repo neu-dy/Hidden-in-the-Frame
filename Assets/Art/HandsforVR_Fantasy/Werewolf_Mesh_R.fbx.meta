@@ -1,0 +1,306 @@
+fileFormatVersion: 2
+guid: 0c24a4e79cd390b4397c52f83e3f7c0d
+timeCreated: 1485779483
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature.001
+    100002: Group18384.001
+    100004: hand_r
+    100006: index_r
+    100008: index_r.001
+    100010: index_r.002
+    100012: index_r.002_end
+    100014: middle_r
+    100016: middle_r.001
+    100018: middle_r.002
+    100020: middle_r.002_end
+    100022: palm_r
+    100024: pinky_r
+    100026: pinky_r.001
+    100028: pinky_r.002
+    100030: pinky_r.002_end
+    100032: Plane
+    100034: ring_r
+    100036: ring_r.001
+    100038: ring_r.002
+    100040: ring_r.002_end
+    100042: thumb_palm_r
+    100044: thumb_r
+    100046: thumb_r_end
+    100048: //RootNode
+    400000: Armature.001
+    400002: Group18384.001
+    400004: hand_r
+    400006: index_r
+    400008: index_r.001
+    400010: index_r.002
+    400012: index_r.002_end
+    400014: middle_r
+    400016: middle_r.001
+    400018: middle_r.002
+    400020: middle_r.002_end
+    400022: palm_r
+    400024: pinky_r
+    400026: pinky_r.001
+    400028: pinky_r.002
+    400030: pinky_r.002_end
+    400032: Plane
+    400034: ring_r
+    400036: ring_r.001
+    400038: ring_r.002
+    400040: ring_r.002_end
+    400042: thumb_palm_r
+    400044: thumb_r
+    400046: thumb_r_end
+    400048: //RootNode
+    2300000: Plane
+    3300000: Plane
+    4300000: Plane
+    4300002: Group18384.001
+    7400000: Werewolf_Hand_R_Idle
+    7400002: Plane|PlaneAction.001
+    7400004: Plane|PlaneAction.002
+    7400006: Werewolf_Hand_R_Grab
+    7400008: Armature.001|PlaneAction
+    7400010: Armature.001|PlaneAction.001
+    7400012: Armature.001|PlaneAction.002
+    9500000: //RootNode
+    13700000: Group18384.001
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Werewolf_Hand_R_Grab
+      takeName: Armature.001|Armature.001Action
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/hand_r
+        weight: 1
+      - path: Armature.001/hand_r/index_r
+        weight: 1
+      - path: Armature.001/hand_r/index_r/index_r.001
+        weight: 1
+      - path: Armature.001/hand_r/index_r/index_r.001/index_r.002
+        weight: 1
+      - path: Armature.001/hand_r/index_r/index_r.001/index_r.002/index_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/middle_r
+        weight: 1
+      - path: Armature.001/hand_r/middle_r/middle_r.001
+        weight: 1
+      - path: Armature.001/hand_r/middle_r/middle_r.001/middle_r.002
+        weight: 1
+      - path: Armature.001/hand_r/middle_r/middle_r.001/middle_r.002/middle_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/palm_r
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r/pinky_r.001
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r/pinky_r.001/pinky_r.002
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r/pinky_r.001/pinky_r.002/pinky_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/ring_r
+        weight: 1
+      - path: Armature.001/hand_r/ring_r/ring_r.001
+        weight: 1
+      - path: Armature.001/hand_r/ring_r/ring_r.001/ring_r.002
+        weight: 1
+      - path: Armature.001/hand_r/ring_r/ring_r.001/ring_r.002/ring_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/thumb_palm_r
+        weight: 1
+      - path: Armature.001/hand_r/thumb_palm_r/thumb_r
+        weight: 1
+      - path: Armature.001/hand_r/thumb_palm_r/thumb_r/thumb_r_end
+        weight: 1
+      - path: Group18384.001
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Werewolf_Hand_R_Idle
+      takeName: Armature.001|Armature.001Action
+      firstFrame: 0
+      lastFrame: 3
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/hand_r
+        weight: 1
+      - path: Armature.001/hand_r/index_r
+        weight: 1
+      - path: Armature.001/hand_r/index_r/index_r.001
+        weight: 1
+      - path: Armature.001/hand_r/index_r/index_r.001/index_r.002
+        weight: 1
+      - path: Armature.001/hand_r/index_r/index_r.001/index_r.002/index_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/middle_r
+        weight: 1
+      - path: Armature.001/hand_r/middle_r/middle_r.001
+        weight: 1
+      - path: Armature.001/hand_r/middle_r/middle_r.001/middle_r.002
+        weight: 1
+      - path: Armature.001/hand_r/middle_r/middle_r.001/middle_r.002/middle_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/palm_r
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r/pinky_r.001
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r/pinky_r.001/pinky_r.002
+        weight: 1
+      - path: Armature.001/hand_r/palm_r/pinky_r/pinky_r.001/pinky_r.002/pinky_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/ring_r
+        weight: 1
+      - path: Armature.001/hand_r/ring_r/ring_r.001
+        weight: 1
+      - path: Armature.001/hand_r/ring_r/ring_r.001/ring_r.002
+        weight: 1
+      - path: Armature.001/hand_r/ring_r/ring_r.001/ring_r.002/ring_r.002_end
+        weight: 1
+      - path: Armature.001/hand_r/thumb_palm_r
+        weight: 1
+      - path: Armature.001/hand_r/thumb_palm_r/thumb_r
+        weight: 1
+      - path: Armature.001/hand_r/thumb_palm_r/thumb_r/thumb_r_end
+        weight: 1
+      - path: Group18384.001
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 80
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
