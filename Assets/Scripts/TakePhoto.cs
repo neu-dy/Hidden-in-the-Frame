@@ -16,6 +16,9 @@ public class TakePhoto : MonoBehaviour
 
     public PhotoDetector photoDetector;
 
+    // For playing phone snap sound
+    public AudioSource phoneCamSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +54,8 @@ public class TakePhoto : MonoBehaviour
             outputTexture = RenderSnapshot(phoneCam);
             ShowSnapshot(outputTexture);
             Debug.Log("New snapshot capture outputted.");
+            // Play cam sound
+            phoneCamSound.Play();
           
             //tells the photodetector to detect
             photoDetector.poked = true;

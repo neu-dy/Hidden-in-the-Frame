@@ -5,6 +5,7 @@ using TMPro;
 using Oculus.Interaction;
 using static UnityEngine.CullingGroup;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PhotoDetector : MonoBehaviour
 {
@@ -24,11 +25,14 @@ public class PhotoDetector : MonoBehaviour
     private Texture2D lastSnapshot;
     private List<ShapeTarget> targets = new List<ShapeTarget>();
 
-    [Header("required Targets")]
+    [Header("Required Targets")]
     private List<string> requiredShapes = new List<string>() { "WallPhoto", "Figure", "Painting" };
 
     private HashSet<string> collected =  new HashSet<string>();
     [SerializeField] private string nextSceneName = "AR Ending";
+
+    public AudioSource phoneCallSound;
+    public GameObject radioSound; // For disabling radio when all 3 photo conditions met
 
     void Awake()
     {
@@ -77,7 +81,13 @@ public class PhotoDetector : MonoBehaviour
             if (allFound && !string. IsNullOrEmpty(nextSceneName))
             {
                 Debug.Log("Already Dected all target and Changing Scene");
-                SceneManager.LoadScene(nextSceneName);
+
+                radioSound.SetActive(false); // Disable radio sound when all targets are found
+                phoneCallSound.Play(); // Play phone call audio when all targets are found
+                StartCoroutine(SceneTransition());
+
+                // Commenting out scene change for Phone Call
+                // SceneManager.LoadScene(nextSceneName);
             }
 
             if (feedbackText)
@@ -91,6 +101,13 @@ public class PhotoDetector : MonoBehaviour
             Debug.Log("New snapshot capture outputted & detection done.");
         }
                 
+    }
+
+    // Function that waits for phone call to finish before scene transition
+    IEnumerator SceneTransition()
+    {
+        yield return new WaitForSeconds(7.0f);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     Texture2D RenderSnapshot(Camera cam)
