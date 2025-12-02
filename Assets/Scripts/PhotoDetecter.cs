@@ -32,7 +32,24 @@ public class PhotoDetector : MonoBehaviour
     [SerializeField] private string nextSceneName = "AR Ending";
 
     public AudioSource phoneCallSound;
+    public AudioSource phoneRingtone;
+    public AudioSource transitionSound;
+
     public GameObject radioSound; // For disabling radio when all 3 photo conditions met
+
+    public Image fadeImage; // For controlling fade to black for win condition
+    public float fadeInDuration = 3f;
+
+    private bool hasLoadedScene = false; // For guarding against scene load looping
+
+    public GameObject wallPaintingItem;
+    public GameObject canvasItem;
+    public GameObject figureBeforeItem;
+    public GameObject figureAfterItem;
+
+    public GameObject phoneCallScreen;
+
+    public GameObject phoneLight;
 
     void Awake()
     {
@@ -67,7 +84,36 @@ public class PhotoDetector : MonoBehaviour
             {
                 collected.Add(s); // If object detected, will add to collection
             }
+            //if WallPhoto in seen:
+            // Enable Handprint
+            //if Canvas in seen:
+            // Enable open eye Canvas
+            // if Figure in seen:
+            // Disable pos 1 + enable pos 2
+            if (seen.Contains("WallPhoto"))
+            {
+                // DoWallPhotoAction();   // ← enable handprint
+                wallPaintingItem.SetActive(true);
+                //play sound here
+                transitionSound.Play();
+            }
 
+            if (seen.Contains("Painting"))
+            {
+                // DoPaintingAction();    // ← enable open eye canvas
+                canvasItem.SetActive(true);
+                //play sound here
+                transitionSound.Play();
+            }
+
+            if (seen.Contains("Figure"))
+            {
+                // DoFigureAction();      // ← disable pos1 / enable pos2
+                figureBeforeItem.SetActive(false);
+                figureAfterItem.SetActive(true);
+                //play sound here
+                transitionSound.Play();
+            }
             bool allFound = true;
             foreach (var req in requiredShapes)
             {
@@ -83,8 +129,9 @@ public class PhotoDetector : MonoBehaviour
                 Debug.Log("Already Dected all target and Changing Scene");
 
                 radioSound.SetActive(false); // Disable radio sound when all targets are found
-                phoneCallSound.Play(); // Play phone call audio when all targets are found
-                StartCoroutine(SceneTransition());
+                phoneLight.SetActive(false); // Turn off phone light
+
+                StartCoroutine(StartPhoneRingtone());
 
                 // Commenting out scene change for Phone Call
                 // SceneManager.LoadScene(nextSceneName);
@@ -103,11 +150,63 @@ public class PhotoDetector : MonoBehaviour
                 
     }
 
+    // Function that waits for all transition sounds to end before phone rings
+    IEnumerator StartPhoneRingtone()
+    {
+        yield return new WaitForSeconds(7.0f);
+        phoneRingtone.Play(); //play ringtone
+        phoneCallScreen.SetActive(true); //switch screen to phone call 
+
+        StartCoroutine(PlayGhostPhoneCall());
+    }
+
+    // Function that waits for phone ringtone to finish before phone call starts
+    IEnumerator PlayGhostPhoneCall()
+    {
+        yield return new WaitForSeconds(8.0f);
+
+        // Play the ghost phone call audio
+        phoneCallSound.Play();
+        StartCoroutine(SceneTransition());
+    }
+
     // Function that waits for phone call to finish before scene transition
     IEnumerator SceneTransition()
     {
         yield return new WaitForSeconds(7.0f);
-        SceneManager.LoadScene(nextSceneName);
+
+        //Fade to black code
+        // Turn on the "Black Screen" Asset
+        fadeImage.gameObject.SetActive(true);
+
+        //play sound here
+
+        float elapsed = 0f;
+        Color color = fadeImage.color;
+
+        // Start fully transparent
+        color.a = 0f;
+        fadeImage.color = color;
+
+        while (elapsed < fadeInDuration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = elapsed / fadeInDuration;   // 0 → 1; 1 is fully opaque
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        if (!hasLoadedScene)
+        {
+            hasLoadedScene = true;
+            SceneManager.LoadScene("AR Ending");
+        }
+
+        // Ensure full opacity after fuction completes
+        color.a = 1f;
+        fadeImage.color = color;
+
+        //SceneManager.LoadScene(nextSceneName);
     }
 
     Texture2D RenderSnapshot(Camera cam)
