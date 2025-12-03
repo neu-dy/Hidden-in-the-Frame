@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 536678346}
-  delayBeforeFadeIn: 94
+  delayBeforeFadeIn: 120
   fadeInDuration: 4
 --- !u!1001 &132572237
 PrefabInstance:
