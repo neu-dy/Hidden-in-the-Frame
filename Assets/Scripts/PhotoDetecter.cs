@@ -145,7 +145,7 @@ public class PhotoDetector : MonoBehaviour
                 Debug.Log("Already Dected all target and Changing Scene");
 
                 radioSound.SetActive(false); // Disable radio sound when all targets are found
-                phoneLight.SetActive(false); // Turn off phone light
+                //phoneLight.SetActive(false); // Turn off phone light
                 pokeDisable.SetActive(false); //disable poke 
                 targets.Remove(pokeDisable.GetComponent<ShapeTarget>()); //remove object
                 StartCoroutine(StartPhoneRingtone());
@@ -181,7 +181,7 @@ public class PhotoDetector : MonoBehaviour
     IEnumerator PlayGhostPhoneCall()
     {
         yield return new WaitForSeconds(8.0f);
-
+        phoneLight.SetActive(false);
         // Play the ghost phone call audio
         phoneCallSound.Play();
         StartCoroutine(SceneTransition());
