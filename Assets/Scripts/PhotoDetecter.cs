@@ -35,6 +35,12 @@ public class PhotoDetector : MonoBehaviour
     public AudioSource phoneRingtone;
     public AudioSource transitionSound;
 
+    //public AudioSource transitionForPainting;
+    //public AudioSource transitionForFigure;
+    //public AudioSource transitionForWallPhoto;
+
+
+
     public GameObject radioSound; // For disabling radio when all 3 photo conditions met
 
     public Image fadeImage; // For controlling fade to black for win condition
@@ -46,6 +52,10 @@ public class PhotoDetector : MonoBehaviour
     public GameObject canvasItem;
     public GameObject figureBeforeItem;
     public GameObject figureAfterItem;
+    public GameObject wallCube;
+    public GameObject canvasCube;
+
+    public GameObject pokeDisable;
 
     public GameObject phoneCallScreen;
 
@@ -53,6 +63,7 @@ public class PhotoDetector : MonoBehaviour
 
     void Awake()
     {
+
         if (!phoneCam)
         {
             var go = GameObject.Find("PhoneCameraOutput");
@@ -94,14 +105,18 @@ public class PhotoDetector : MonoBehaviour
             {
                 // DoWallPhotoAction();   // ← enable handprint
                 wallPaintingItem.SetActive(true);
-                //play sound here
-                transitionSound.Play();
+                wallCube.SetActive(false);
+                targets.Remove(wallCube.GetComponent<ShapeTarget>());
+                transitionSound.Play();//play sound here
+
             }
 
             if (seen.Contains("Painting"))
             {
                 // DoPaintingAction();    // ← enable open eye canvas
                 canvasItem.SetActive(true);
+                canvasCube.SetActive(false);
+                targets.Remove(canvasCube.GetComponent<ShapeTarget>());
                 //play sound here
                 transitionSound.Play();
             }
@@ -110,6 +125,7 @@ public class PhotoDetector : MonoBehaviour
             {
                 // DoFigureAction();      // ← disable pos1 / enable pos2
                 figureBeforeItem.SetActive(false);
+                targets.Remove(figureBeforeItem.GetComponent<ShapeTarget>());
                 figureAfterItem.SetActive(true);
                 //play sound here
                 transitionSound.Play();
@@ -130,7 +146,8 @@ public class PhotoDetector : MonoBehaviour
 
                 radioSound.SetActive(false); // Disable radio sound when all targets are found
                 phoneLight.SetActive(false); // Turn off phone light
-
+                pokeDisable.SetActive(false); //disable poke 
+                targets.Remove(pokeDisable.GetComponent<ShapeTarget>()); //remove object
                 StartCoroutine(StartPhoneRingtone());
 
                 // Commenting out scene change for Phone Call
